@@ -9,3 +9,6 @@ build:
 
 lint:
 	npx eslint .
+
+lintFix:
+	npx eslint --fix .
