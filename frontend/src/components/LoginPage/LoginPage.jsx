@@ -1,6 +1,6 @@
 import { React } from 'react';
 import { Container } from 'react-bootstrap';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 // import { useTranslation } from 'react-i18next';
 import LoginForm from './LoginForm';
 import loginImage from '../../assets/loginImage.jpg';
@@ -23,7 +23,10 @@ const LoginPage = () => (
               <LoginForm />
             </div>
             <div className="card-footer p-4">
-              <div className="text-center" />
+              <div className="text-center">
+                <span>Нет аккаунта?</span>
+                <Link href="/signup">Регистрация</Link>
+              </div>
             </div>
           </div>
         </div>

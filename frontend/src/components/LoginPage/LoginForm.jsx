@@ -10,7 +10,7 @@ const LoginForm = () => {
       username: '',
       password: '',
     },
-    onSubmit: () => alert('Submit!'),
+    onSubmit: () => console.log('Submit!'),
   });
 
   return (
