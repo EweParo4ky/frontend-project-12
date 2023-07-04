@@ -1,4 +1,4 @@
-import App from './components/LoginPage.jsx';
+import App from './components/App.jsx';
 
 const init = async () => <App />;
 
