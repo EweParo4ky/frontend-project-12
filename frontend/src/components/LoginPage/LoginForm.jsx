@@ -1,23 +1,47 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
-// import * as yup from 'yup';
+import axios from 'axios';
+
+import routes from '../../routes.js';
+import { useAuth } from '../contexts/authContext.jsx';
 
 const LoginForm = () => {
+  const { logIn } = useAuth();
+  const redirect = useNavigate();
+
+  console.log('localstorage', localStorage.getItem('userData'));
+
   const formik = useFormik({
     initialValues: {
       username: '',
       password: '',
     },
-    onSubmit: () => console.log('Submit!'),
+    onSubmit: async (values) => {
+      try {
+        const response = await axios.post(routes.loginApiPath(), values);
+        console.log('response', response.data);
+        logIn(response.data);
+        console.log('!!!!!!!!!!!!!', localStorage.getItem('userData'));
+        redirect(routes.chatPagePath());
+      } catch (error) {
+        console.log('error', error);
+      }
+    },
   });
 
   return (
-    <Form className="col-12 col-md-6 mt-3 mt-mb-0" onSubmit={formik.handleSubmit}>
+    <Form
+      className="col-12 col-md-6 mt-3 mt-mb-0"
+      onSubmit={formik.handleSubmit}
+    >
       <h1 className="text-center mb-4">Войти</h1>
       <Form.Group className="form-floating mb-3">
         <Form.Control
+          onChange={formik.handleChange}
+          value={formik.values.username}
           placeholder="Ваш ник"
           required
           autoComplete="username"
@@ -29,6 +53,8 @@ const LoginForm = () => {
       </Form.Group>
       <Form.Group className="form-floating mb-3">
         <Form.Control
+          onChange={formik.handleChange}
+          value={formik.values.password}
           placeholder="Пароль"
           required
           autoComplete="password"
