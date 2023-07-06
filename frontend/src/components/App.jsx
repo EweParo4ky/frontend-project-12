@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-
 import ChatPage from './ChatPage/ChatPage.jsx';
 import LoginPage from './LoginPage/LoginPage.jsx';
 import SignupPage from './SignupPage/SignupPage.jsx';
