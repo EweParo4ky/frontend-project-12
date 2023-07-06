@@ -1,6 +1,5 @@
-import React from 'react';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
+import React, { useState } from 'react';
+import { Button, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import axios from 'axios';
@@ -9,6 +8,7 @@ import routes from '../../routes.js';
 import { useAuth } from '../contexts/authContext.jsx';
 
 const LoginForm = () => {
+  const [authFailed, setAuthFailed] = useState(false);
   const { logIn } = useAuth();
   const redirect = useNavigate();
 
@@ -28,6 +28,11 @@ const LoginForm = () => {
         redirect(routes.chatPagePath());
       } catch (error) {
         console.log('error', error);
+        if (error.isAxiosError && error.response.status === 401) {
+          setAuthFailed(true);
+          return;
+        }
+        throw error;
       }
     },
   });
@@ -48,6 +53,7 @@ const LoginForm = () => {
           id="username"
           type="text"
           name="username"
+          isInvalid={authFailed}
         />
         <Form.Label htmlFor="username">Ваш ник</Form.Label>
       </Form.Group>
@@ -61,8 +67,12 @@ const LoginForm = () => {
           id="password"
           type="text"
           name="password"
+          isInvalid={authFailed}
         />
         <Form.Label htmlFor="password">Пароль</Form.Label>
+        <Form.Control.Feedback type="invalid" tooltip>
+          { authFailed ? 'Неверные имя пользователя или пароль' : null}
+        </Form.Control.Feedback>
       </Form.Group>
       <Button type="submit" className="w-100 mb-3" variant="outline-primary">
         Войти
