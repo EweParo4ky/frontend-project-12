@@ -74,7 +74,7 @@ const LoginForm = () => {
           { authFailed ? 'Неверные имя пользователя или пароль' : null}
         </Form.Control.Feedback>
       </Form.Group>
-      <Button type="submit" className="w-100 mb-3" variant="outline-primary">
+      <Button type="submit" className="w-100 mb-3" variant="outline-info">
         Войти
       </Button>
     </Form>
