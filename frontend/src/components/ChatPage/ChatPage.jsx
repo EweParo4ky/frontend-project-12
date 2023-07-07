@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
 // import { Link } from 'react-router-dom';
-import { Container } from 'react-bootstrap';
-import { PlusSquare } from 'react-bootstrap-icons';
+import { Container, Form } from 'react-bootstrap';
+import { PlusSquare, ArrowRightSquare } from 'react-bootstrap-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { setChannels, selectors } from '../../slices/channelsSlice.js';
 import { setSelectedChannelId } from '../../slices/selectedChannelSlice.js';
@@ -52,6 +52,26 @@ const ChannelsCol = ({ channels, selectedChannelId }) => {
   );
 };
 
+const MessageForm = () => (
+  <Form noValidate className="py-1 border rounded-2">
+    <Form.Group className="input-group has-validation">
+      <Form.Control
+        className="border-0 p-0 ps-2"
+        placeholder="Введите сообщение..."
+        aria-label="Новое сообщение"
+        id="messageForm"
+        type="text"
+        name="body"
+      />
+      <button type="submit" className="btn btn-group-vertical">
+        <ArrowRightSquare size={20} />
+      </button>
+    </Form.Group>
+  </Form>
+);
+
+// ToDO Закончить форму(сабмит + Formik)
+
 const MessageCol = ({ auth, currentChannel }) => (
   <div className="d-flex flex-column h-100">
     <div className="bg-light mb-4 p-3 shadow-sm small">
@@ -62,10 +82,11 @@ const MessageCol = ({ auth, currentChannel }) => (
     </div>
     <div id="messages-box" className="chat-messages overflow-auto px-5 " />
     <div className="mt-auto px-5 py-3">
-      {/* <Form novalidate className="py-1 border rounded-2"></Form> */}
+      {/* ToDO  Добавть MessageBox */}
+      <MessageForm />
       <button
         type="button"
-        className="btn btn-outline-info"
+        className="mt-3 btn btn-outline-info"
         onClick={() => auth.logOut()}
       >
         Выйти
@@ -100,7 +121,7 @@ const ChatPage = () => {
   console.log('channels!!!!', channels);
   const selectedChannelId = useSelector((state) => state.selectedChannel.value);
   console.log('selectedChannelId', selectedChannelId);
-  const currentChannel = useSelector((state) => selectors.selectById(state, 1));
+  const currentChannel = useSelector((state) => (selectors.selectById(state, selectedChannelId)));
   // не меняется currentChannel
   console.log('currentChannel', currentChannel);
   // const currentChannel = {
