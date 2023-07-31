@@ -6,6 +6,10 @@ import { PlusSquare, ArrowRightSquare } from 'react-bootstrap-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { setChannels, selectors } from '../../slices/channelsSlice.js';
 import { setSelectedChannelId } from '../../slices/selectedChannelSlice.js';
+import {
+  actions as messagesActions,
+  selectors as messageSelectors,
+} from '../../slices/messagesSlice.js';
 import { useAuth } from '../contexts/authContext.jsx';
 import routes from '../../routes.js';
 
@@ -53,7 +57,11 @@ const ChannelsCol = ({ channels, selectedChannelId }) => {
 };
 
 const MessageForm = () => (
-  <Form noValidate className="py-1 border rounded-2">
+  <Form
+    noValidate
+    className="py-1 border rounded-2"
+    onSubmit={(e) => e.preventDefault()}
+  >
     <Form.Group className="input-group has-validation">
       <Form.Control
         className="border-0 p-0 ps-2"
@@ -109,7 +117,8 @@ const ChatPage = () => {
         console.log(setChannels(res.data.channels));
         dispatch(setChannels(res.data.channels));
         dispatch(setSelectedChannelId(res.data.currentChannelId));
-        console.log('response', res.data);
+        dispatch(messagesActions.setMessages(res.data.messages));
+        console.log('responseFetchData!!!', res.data);
       } catch (error) {
         console.error(error);
       }
@@ -121,12 +130,10 @@ const ChatPage = () => {
   console.log('channels!!!!', channels);
   const selectedChannelId = useSelector((state) => state.selectedChannel.value);
   console.log('selectedChannelId', selectedChannelId);
-  const currentChannel = useSelector((state) => (selectors.selectById(state, selectedChannelId)));
-  // не меняется currentChannel
+  const currentChannel = useSelector((state) => selectors.selectById(state, selectedChannelId));
   console.log('currentChannel', currentChannel);
-  // const currentChannel = {
-  //   name: 'Jenerallll',
-  // };
+  const selectedChannelMessages = useSelector(messageSelectors.selectAll);
+  console.log('messages', selectedChannelMessages);
 
   return (
     <div className="h-100" id="chat">
