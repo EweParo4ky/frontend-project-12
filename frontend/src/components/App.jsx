@@ -4,7 +4,7 @@ import ChatPage from './ChatPage/ChatPage.jsx';
 import LoginPage from './LoginPage/LoginPage.jsx';
 import SignupPage from './SignupPage/SignupPage.jsx';
 import NotFoundPage from './NotFoundPage/NotFoundPage.jsx';
-import { AuthProvider } from './contexts/authContext.jsx';
+import { AuthProvider } from '../contexts/authContext.jsx';
 import Authorization from './AuthorizationCheck/AuthorizationCheck.jsx';
 
 const App = () => (

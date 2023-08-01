@@ -5,7 +5,7 @@ import { useFormik } from 'formik';
 import axios from 'axios';
 
 import routes from '../../routes.js';
-import { useAuth } from '../contexts/authContext.jsx';
+import { useAuth } from '../../contexts/authContext.jsx';
 
 const LoginForm = () => {
   const [authFailed, setAuthFailed] = useState(false);
