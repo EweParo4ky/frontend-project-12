@@ -1,6 +1,6 @@
 import React from 'react';
 
-const MessageBox = ({ selectedChannelMessages }) => (
+const MessagesBox = ({ selectedChannelMessages }) => (
   <div id="messages-box" className="chat-messages overflow-auto px-5 ">
     {selectedChannelMessages.map(({ id, body, username }) => (
       <div className="text-break mb-2" key={id}>
@@ -11,4 +11,4 @@ const MessageBox = ({ selectedChannelMessages }) => (
   </div>
 );
 
-export default MessageBox;
+export default MessagesBox;

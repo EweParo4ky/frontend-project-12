@@ -3,7 +3,10 @@ import axios from 'axios';
 // import { Link } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { setChannels, selectors } from '../../slices/channelsSlice.js';
+import {
+  setChannels,
+  selectors as channelsSelectors,
+} from '../../slices/channelsSlice.js';
 import { setSelectedChannelId } from '../../slices/selectedChannelSlice.js';
 import {
   actions as messagesActions,
@@ -13,7 +16,7 @@ import { useAuth } from '../../contexts/authContext.jsx';
 import routes from '../../routes.js';
 
 import ChannelsCol from './ChannelsCol/ChannelsCol.jsx';
-import MessageCol from './MessageCol/MessageCol.jsx';
+import MessagesCol from './MessagesCol/MessagesCol.jsx';
 
 const ChatPage = () => {
   const dispatch = useDispatch();
@@ -26,7 +29,6 @@ const ChatPage = () => {
         const res = await axios.get(routes.dataApiPath(), {
           headers: { Authorization: `Bearer ${token}` },
         });
-        console.log(setChannels(res.data.channels));
         dispatch(setChannels(res.data.channels));
         dispatch(setSelectedChannelId(res.data.currentChannelId));
         dispatch(messagesActions.setMessages(res.data.messages));
@@ -36,15 +38,20 @@ const ChatPage = () => {
       }
     };
     fetchData();
-  }, [dispatch, token]);
+  }, [dispatch]);
 
-  const channels = useSelector(selectors.selectAll);
+  const channels = useSelector(channelsSelectors.selectAll);
   console.log('channels!!!!', channels);
   const selectedChannelId = useSelector((state) => state.selectedChannel.value);
   console.log('selectedChannelId', selectedChannelId);
-  const currentChannel = useSelector((state) => selectors.selectById(state, selectedChannelId));
+  const currentChannel = useSelector(
+    (state) => channelsSelectors.selectById(state, selectedChannelId),
+  );
   console.log('currentChannel', currentChannel);
-  const selectedChannelMessages = useSelector(messageSelectors.selectAll);
+  const messages = useSelector(messageSelectors.selectAll);
+  console.log('MESSAGES', messages);
+  const selectedChannelMessages = useSelector(messageSelectors.selectAll)
+    .filter(({ id }) => id === selectedChannelId);
   console.log('selectedChannelMessages', selectedChannelMessages);
 
   return (
@@ -58,7 +65,7 @@ const ChatPage = () => {
               selectedChannelId={selectedChannelId}
             />
             <div className="col p-0 h-100">
-              <MessageCol
+              <MessagesCol
                 auth={auth}
                 currentChannel={currentChannel}
                 selectedChannelMessages={selectedChannelMessages}
