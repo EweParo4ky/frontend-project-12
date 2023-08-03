@@ -1,33 +1,19 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { io } from 'socket.io-client';
-// import { actions as messagesActions } from './slices/messagesSlice.js';
+import { SocketProvider } from './contexts/socketContext.jsx';
 
 import store from './slices/index.js';
 import App from './components/App.jsx';
 
 const socket = io();
 
-export const sendNewMessage = (message) => {
-  socket.emit('newMessage', message);
-};
-
-const init = async () => {
-  socket
-    .on('connect', () => {
-      console.log('/////USER CONNECTED!!!!/////');
-      console.log({ '////socket.id////': socket.id });
-    })
-    .on('newMessage', (payload) => {
-      console.log('payload newMessage', payload);
-      // store.dispatch(messagesActions.addMessage(payload));
-    });
-
-  return (
-    <Provider store={store}>
+const init = async () => (
+  <Provider store={store}>
+    <SocketProvider socket={socket}>
       <App />
-    </Provider>
-  );
-};
+    </SocketProvider>
+  </Provider>
+);
 
 export default init;

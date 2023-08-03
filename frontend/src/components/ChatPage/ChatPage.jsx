@@ -16,6 +16,7 @@ import { useAuth } from '../../contexts/authContext.jsx';
 import routes from '../../routes.js';
 
 import ChannelsCol from './ChannelsCol/ChannelsCol.jsx';
+// eslint-disable-next-line import/no-cycle
 import MessagesCol from './MessagesCol/MessagesCol.jsx';
 
 const ChatPage = () => {
@@ -41,14 +42,10 @@ const ChatPage = () => {
   }, [dispatch, token]);
 
   const channels = useSelector(channelsSelectors.selectAll);
-  console.log('channels!!!!', channels);
   const selectedChannelId = useSelector((state) => state.selectedChannel.value);
-  console.log('selectedChannelId', selectedChannelId);
   const currentChannel = useSelector(
     (state) => channelsSelectors.selectById(state, selectedChannelId),
   );
-  console.log('currentChannel', currentChannel);
-
   const selectedChannelMessages = useSelector(messageSelectors.selectAll)
     .filter(({ channelId }) => channelId === selectedChannelId);
   console.log('selectedChannelMessages', selectedChannelMessages);

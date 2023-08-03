@@ -2,17 +2,18 @@ import { React, useEffect, useRef } from 'react';
 import { Form } from 'react-bootstrap';
 import { ArrowRightSquare } from 'react-bootstrap-icons';
 import { useFormik } from 'formik';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { actions as messagesActions } from '../../../slices/messagesSlice.js';
 import { useAuth } from '../../../contexts/authContext.jsx';
+import { useSocket } from '../../../contexts/socketContext.jsx';
 
 const MessagesForm = () => {
-  const dispatch = useDispatch();
   const { userData } = useAuth();
   const { username } = userData;
   const inputRef = useRef();
   const selectedChannelId = useSelector((state) => state.selectedChannel.value);
   const store = useSelector((state) => state);
+  const { sendNewMessage } = useSocket();
   console.log('////STORE////', store);
 
   const formik = useFormik({
@@ -21,14 +22,13 @@ const MessagesForm = () => {
     },
     onSubmit: (value) => {
       try {
-        dispatch(
+        sendNewMessage(
           messagesActions.addMessage({
             body: value.body,
             channelId: selectedChannelId,
             username,
           }),
         );
-        console.log(value, '//////////////SUBMIT!!!!!!!!!!!!!!!!!!!!!!!!');
         formik.setSubmitting(true);
         formik.resetForm();
       } catch (error) {
