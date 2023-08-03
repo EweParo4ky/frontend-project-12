@@ -6,17 +6,22 @@ import { io } from 'socket.io-client';
 import store from './slices/index.js';
 import App from './components/App.jsx';
 
-const init = async () => {
-  const socket = io();
+const socket = io();
 
-  socket.on('connect', () => {
-    console.log('/////USER CONNECTED!!!!/////');
-    console.log({ '////socket.id////': socket.id });
-  });
-  // .on('newMessage', (payload) => {
-  //   console.log('payload newMessage', payload);
-  //   store.dispatch(messagesActions.addMessage(payload));
-  // });
+export const sendNewMessage = (message) => {
+  socket.emit('newMessage', message);
+};
+
+const init = async () => {
+  socket
+    .on('connect', () => {
+      console.log('/////USER CONNECTED!!!!/////');
+      console.log({ '////socket.id////': socket.id });
+    })
+    .on('newMessage', (payload) => {
+      console.log('payload newMessage', payload);
+      // store.dispatch(messagesActions.addMessage(payload));
+    });
 
   return (
     <Provider store={store}>

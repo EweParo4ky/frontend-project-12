@@ -38,7 +38,7 @@ const ChatPage = () => {
       }
     };
     fetchData();
-  }, [dispatch]);
+  }, [dispatch, token]);
 
   const channels = useSelector(channelsSelectors.selectAll);
   console.log('channels!!!!', channels);
@@ -48,10 +48,9 @@ const ChatPage = () => {
     (state) => channelsSelectors.selectById(state, selectedChannelId),
   );
   console.log('currentChannel', currentChannel);
-  const messages = useSelector(messageSelectors.selectAll);
-  console.log('MESSAGES', messages);
+
   const selectedChannelMessages = useSelector(messageSelectors.selectAll)
-    .filter(({ id }) => id === selectedChannelId);
+    .filter(({ channelId }) => channelId === selectedChannelId);
   console.log('selectedChannelMessages', selectedChannelMessages);
 
   return (

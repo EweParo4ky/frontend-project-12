@@ -12,25 +12,25 @@ const MessagesForm = () => {
   const { username } = userData;
   const inputRef = useRef();
   const selectedChannelId = useSelector((state) => state.selectedChannel.value);
-  const store = useSelector((state) => state.messages);
+  const store = useSelector((state) => state);
   console.log('////STORE////', store);
 
   const formik = useFormik({
     initialValues: {
       body: '',
     },
-    onSubmit: (value, { resetForm }) => {
+    onSubmit: (value) => {
       try {
         dispatch(
           messagesActions.addMessage({
             body: value.body,
-            id: selectedChannelId,
+            channelId: selectedChannelId,
             username,
           }),
         );
         console.log(value, '//////////////SUBMIT!!!!!!!!!!!!!!!!!!!!!!!!');
         formik.setSubmitting(true);
-        resetForm();
+        formik.resetForm();
       } catch (error) {
         formik.setSubmitting(false);
         console.error(error);
