@@ -16,7 +16,6 @@ import { useAuth } from '../../contexts/authContext.jsx';
 import routes from '../../routes.js';
 
 import ChannelsCol from './ChannelsCol/ChannelsCol.jsx';
-// eslint-disable-next-line import/no-cycle
 import MessagesCol from './MessagesCol/MessagesCol.jsx';
 
 const ChatPage = () => {
