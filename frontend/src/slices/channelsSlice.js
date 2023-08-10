@@ -8,9 +8,10 @@ const channelsSlice = createSlice({
   initialState,
   reducers: {
     setChannels: channelsAdapter.setAll,
+    addChannel: channelsAdapter.addOne,
   },
 });
 
-export const { setChannels } = channelsSlice.actions;
+export const { actions } = channelsSlice;
 export const selectors = channelsAdapter.getSelectors((state) => state.channels);
 export default channelsSlice.reducer;

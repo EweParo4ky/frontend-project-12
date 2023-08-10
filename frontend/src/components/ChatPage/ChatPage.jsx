@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Container } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  setChannels,
+  actions as channelsActions,
   selectors as channelsSelectors,
 } from '../../slices/channelsSlice.js';
 import { setSelectedChannelId } from '../../slices/selectedChannelSlice.js';
@@ -29,7 +29,7 @@ const ChatPage = () => {
         const res = await axios.get(routes.dataApiPath(), {
           headers: { Authorization: `Bearer ${token}` },
         });
-        dispatch(setChannels(res.data.channels));
+        dispatch(channelsActions.setChannels(res.data.channels));
         dispatch(setSelectedChannelId(res.data.currentChannelId));
         dispatch(messagesActions.setMessages(res.data.messages));
         console.log('responseFetchData!!!', res.data);
