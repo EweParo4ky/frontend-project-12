@@ -5,6 +5,8 @@ import { PlusSquare } from 'react-bootstrap-icons';
 import { setSelectedChannelId } from '../../../slices/selectedChannelSlice.js';
 import { actions as modalActions } from '../../../slices/modalSlice';
 import AddChannel from '../Modals/AddChannel.jsx';
+import DeleteChannel from '../Modals/DeleteChannel.jsx';
+import RenameChannel from '../Modals/RenameChannel.jsx';
 
 const ChannelsCol = ({ channels, selectedChannelId }) => {
   const dispatch = useDispatch();
@@ -48,8 +50,10 @@ const ChannelsCol = ({ channels, selectedChannelId }) => {
                 </Dropdown.Toggle>
               )}
               <Dropdown.Menu>
-                <Dropdown.Item eventKey="1">Удалить</Dropdown.Item>
-                <Dropdown.Item eventKey="2">Переименовать</Dropdown.Item>
+                <Dropdown.Item onClick={() => dispatch(modalActions.openModal({ modalType: 'deleteModal' }))} eventKey="1">Удалить</Dropdown.Item>
+                <Dropdown.Item onClick={() => dispatch(modalActions.openModal({ modalType: 'renameModal' }))} eventKey="2">Переименовать</Dropdown.Item>
+                {modalType === 'deleteModal' && <DeleteChannel />}
+                {modalType === 'renameModal' && <RenameChannel />}
               </Dropdown.Menu>
             </Dropdown>
           </li>

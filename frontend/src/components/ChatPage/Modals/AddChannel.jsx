@@ -28,24 +28,28 @@ const AddChannel = () => {
 
   const inputRef = useRef();
 
-  useEffect(() => {
-    inputRef.current.focus();
-  });
-
   const formik = useFormik({
     initialValues: { channelName: '' },
     validationSchema: validateChannel(channelsNames),
+    validateOnChange: false,
+    validateOnBlur: false,
     onSubmit: async (values) => {
       try {
         await addNewChannel({ name: values.channelName });
         console.log('SUBMIT IN ADDCHANNEL');
         console.log('value in ADDCHANNEL', values);
-        dispatch(modalActions.toggleModal());
+        dispatch(modalActions.closeModal());
       } catch (error) {
+        formik.setSubmitting(false);
         console.error(error);
       }
     },
   });
+
+  useEffect(() => {
+    inputRef.current.focus();
+    console.log('INPUTREF');
+  }, []);
 
   return (
     <Modal centered show onHide={() => dispatch(modalActions.closeModal())}>
@@ -60,12 +64,11 @@ const AddChannel = () => {
                 className="mb-2"
                 id="channelName"
                 onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
                 name="channelName"
                 value={formik.values.channelName}
                 ref={inputRef}
-                isInvalid={
-                  formik.touched.channelName && formik.errors.channelName
-                }
+                isInvalid={formik.errors.channelName}
               />
               <Form.Label className="visually-hidden" htmlFor="сhannelName">
                 Имя канала
@@ -82,7 +85,11 @@ const AddChannel = () => {
               >
                 Отменить
               </Button>
-              <button type="submit" className="btn btn-outline-info">
+              <button
+                onClick={formik.handleSubmit}
+                type="submit"
+                className="btn btn-outline-info"
+              >
                 Отправить
               </button>
             </div>
