@@ -50,8 +50,8 @@ const ChannelsCol = ({ channels, selectedChannelId }) => {
                 </Dropdown.Toggle>
               )}
               <Dropdown.Menu>
-                <Dropdown.Item onClick={() => dispatch(modalActions.openModal({ modalType: 'deleteModal' }))} eventKey="1">Удалить</Dropdown.Item>
-                <Dropdown.Item onClick={() => dispatch(modalActions.openModal({ modalType: 'renameModal' }))} eventKey="2">Переименовать</Dropdown.Item>
+                <Dropdown.Item onClick={() => dispatch(modalActions.openModal({ modalType: 'deleteModal', channelId: channel.id }))} eventKey="1">Удалить</Dropdown.Item>
+                <Dropdown.Item onClick={() => dispatch(modalActions.openModal({ modalType: 'renameModal', channelId: channel.id }))} eventKey="2">Переименовать</Dropdown.Item>
                 {modalType === 'deleteModal' && <DeleteChannel />}
                 {modalType === 'renameModal' && <RenameChannel />}
               </Dropdown.Menu>

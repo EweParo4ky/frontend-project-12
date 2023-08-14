@@ -16,16 +16,20 @@ const SocketProvider = ({ socket, children }) => {
       console.log('Socket "connect_error"');
     })
     .on('newMessage', (message) => {
-      console.log('payload newMessage', message);
       dispatch(messagesActions.addMessage(message));
     })
     .on('newChannel', (channelWithId) => {
-      console.log('payload addChannel', channelWithId);
       dispatch(channelsActions.addChannel(channelWithId));
+    })
+    .on('removeChannel', (selectedChannel) => {
+      dispatch(channelsActions.deleteChannel(selectedChannel.id));
+    })
+    .on('renameChannel', (renamedChannel) => {
+      dispatch(channelsActions.renameChannel(renamedChannel));
+      // console.log('renamedChannel in Socket', renamedChannel);
     });
 
   const sendNewMessage = (message) => {
-    console.log('sendnewMessage', message);
     socket.emit('newMessage', message.payload);
   };
 
@@ -38,8 +42,17 @@ const SocketProvider = ({ socket, children }) => {
     });
   };
 
+  const deleteChannel = (selectedChannel) => {
+    socket.emit('removeChannel', selectedChannel);
+  };
+
+  const renameChannel = (selectedChannel) => {
+    console.log('inRENAMECHANNEL SelectedCHANNEL', selectedChannel);
+    socket.emit('renameChannel', selectedChannel);
+  };
+
   const socketAPI = useMemo(() => ({
-    sendNewMessage, addNewChannel,
+    sendNewMessage, addNewChannel, deleteChannel, renameChannel,
   }), []);
 
   return <SocketContext.Provider value={socketAPI}>{children}</SocketContext.Provider>;

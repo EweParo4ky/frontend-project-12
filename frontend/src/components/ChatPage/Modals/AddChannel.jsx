@@ -24,7 +24,6 @@ const AddChannel = () => {
   const channelsNames = useSelector(channelsSelectors.selectAll).map(
     (channel) => channel.name,
   );
-  console.log('channels in add Modal', channelsNames);
 
   const inputRef = useRef();
 
@@ -36,9 +35,8 @@ const AddChannel = () => {
     onSubmit: async (values) => {
       try {
         await addNewChannel({ name: values.channelName });
-        console.log('SUBMIT IN ADDCHANNEL');
-        console.log('value in ADDCHANNEL', values);
         dispatch(modalActions.closeModal());
+        formik.setSubmitting(true);
       } catch (error) {
         formik.setSubmitting(false);
         console.error(error);
@@ -48,8 +46,7 @@ const AddChannel = () => {
 
   useEffect(() => {
     inputRef.current.focus();
-    console.log('INPUTREF');
-  }, []);
+  });
 
   return (
     <Modal centered show onHide={() => dispatch(modalActions.closeModal())}>
@@ -62,10 +59,10 @@ const AddChannel = () => {
             <Form.Group>
               <Form.Control
                 className="mb-2"
+                name="channelName"
                 id="channelName"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                name="channelName"
                 value={formik.values.channelName}
                 ref={inputRef}
                 isInvalid={formik.errors.channelName}
@@ -81,17 +78,17 @@ const AddChannel = () => {
               <Button
                 onClick={() => dispatch(modalActions.closeModal())}
                 className="me-2"
-                variant="secondary"
+                variant="outline-secondary"
               >
                 Отменить
               </Button>
-              <button
+              <Button
                 onClick={formik.handleSubmit}
                 type="submit"
-                className="btn btn-outline-info"
+                variant="outline-info"
               >
                 Отправить
-              </button>
+              </Button>
             </div>
           </fieldset>
         </Form>

@@ -47,7 +47,6 @@ const ChatPage = () => {
   );
   const selectedChannelMessages = useSelector(messageSelectors.selectAll)
     .filter(({ channelId }) => channelId === selectedChannelId);
-  console.log('selectedChannelMessages', selectedChannelMessages);
 
   return (
     <div className="h-100" id="chat">
