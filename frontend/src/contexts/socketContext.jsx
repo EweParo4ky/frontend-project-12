@@ -25,8 +25,12 @@ const SocketProvider = ({ socket, children }) => {
       dispatch(channelsActions.deleteChannel(selectedChannel.id));
     })
     .on('renameChannel', (renamedChannel) => {
-      dispatch(channelsActions.renameChannel(renamedChannel));
-      // console.log('renamedChannel in Socket', renamedChannel);
+      dispatch(channelsActions.renameChannel({
+        id: renamedChannel.id,
+        changes: {
+          name: renamedChannel.name,
+        },
+      }));
     });
 
   const sendNewMessage = (message) => {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
@@ -11,6 +11,7 @@ const LoginForm = () => {
   const [authFailed, setAuthFailed] = useState(false);
   const { logIn } = useAuth();
   const redirect = useNavigate();
+  const inputRef = useRef();
 
   console.log('localstorage', localStorage.getItem('userData'));
 
@@ -24,7 +25,6 @@ const LoginForm = () => {
         const response = await axios.post(routes.loginApiPath(), values);
         console.log('response', response.data);
         logIn(response.data);
-        console.log('!!!!!!!!!!!!!', localStorage.getItem('userData'));
         redirect(routes.chatPagePath());
       } catch (error) {
         console.log('error', error);
@@ -37,6 +37,10 @@ const LoginForm = () => {
     },
   });
 
+  useEffect(() => {
+    inputRef.current.focus();
+  });
+
   return (
     <Form
       className="col-12 col-md-6 mt-3 mt-mb-0"
@@ -47,6 +51,7 @@ const LoginForm = () => {
         <Form.Control
           onChange={formik.handleChange}
           value={formik.values.username}
+          ref={inputRef}
           placeholder="Ваш ник"
           required
           autoComplete="username"
@@ -71,7 +76,7 @@ const LoginForm = () => {
         />
         <Form.Label htmlFor="password">Пароль</Form.Label>
         <Form.Control.Feedback type="invalid" tooltip>
-          { authFailed ? 'Неверные имя пользователя или пароль' : null}
+          {authFailed ? 'Неверные имя пользователя или пароль' : null}
         </Form.Control.Feedback>
       </Form.Group>
       <Button type="submit" className="w-100 mb-3" variant="outline-info">

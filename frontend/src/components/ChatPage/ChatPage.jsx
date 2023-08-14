@@ -17,6 +17,7 @@ import routes from '../../routes.js';
 
 import ChannelsCol from './ChannelsCol/ChannelsCol.jsx';
 import MessagesCol from './MessagesCol/MessagesCol.jsx';
+import Nav from '../NavBar/Nav.jsx';
 
 const ChatPage = () => {
   const dispatch = useDispatch();
@@ -51,7 +52,7 @@ const ChatPage = () => {
   return (
     <div className="h-100" id="chat">
       <div className="d-flex flex-column h-100">
-        {/* Nav */}
+        <Nav />
         <Container className="h-100 my-4 overflow-hidden rounded shadow">
           <div className="row h-100 bg-white flex-md-row">
             <ChannelsCol

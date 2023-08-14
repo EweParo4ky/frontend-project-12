@@ -1,13 +1,10 @@
-import { React } from 'react';
+import React from 'react';
 import { Container } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import avatarReg from '../../assets/avatarReg.jpg';
 import Nav from '../NavBar/Nav';
-import LoginForm from './LoginForm';
+import SignUpForm from './SignUpForm.jsx';
 
-import loginImage from '../../assets/loginImage.jpg';
-import routes from '../../routes.js';
-
-const LoginPage = () => (
+const SignUpPage = () => (
   <div className="d-flex flex-column h-100">
     <Nav />
     <Container fluid className="h-100">
@@ -18,18 +15,12 @@ const LoginPage = () => (
               <div className="col-12 col-md-6 d-flex align-items-center justify-content-center">
                 <img
                   style={{ widht: '200px', height: '200px', marginTop: '70px' }}
-                  src={loginImage}
+                  src={avatarReg}
                   className="rounded-circle"
                   alt="Войти"
                 />
               </div>
-              <LoginForm />
-            </div>
-            <div className="card-footer p-4">
-              <div className="text-center">
-                <span>Нет аккаунта? </span>
-                <Link to={routes.signupPagePath()}>Регистрация</Link>
-              </div>
+              <SignUpForm />
             </div>
           </div>
         </div>
@@ -37,4 +28,5 @@ const LoginPage = () => (
     </Container>
   </div>
 );
-export default LoginPage;
+
+export default SignUpPage;
