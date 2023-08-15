@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button, ButtonGroup, Dropdown } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { PlusSquare } from 'react-bootstrap-icons';
@@ -11,12 +12,14 @@ import RenameChannel from '../Modals/RenameChannel.jsx';
 const ChannelsCol = ({ channels, selectedChannelId }) => {
   const dispatch = useDispatch();
   const { modalType } = useSelector((state) => state.modal);
+  const { t } = useTranslation();
+
   return (
     <div className="col-4 col-md-2 border-end px-0 bg-light flex-column h-100 d-flex">
       <div className="d-flex mt-1 justify-content-between mb-2 ps-4 pe-2 p-4">
         {modalType === 'addModal' && <AddChannel />}
         <span>
-          <b>Каналы</b>
+          <b>{t('chatPage.channelsCol.channels')}</b>
         </span>
         <button
           type="button"
@@ -24,7 +27,7 @@ const ChannelsCol = ({ channels, selectedChannelId }) => {
           onClick={() => dispatch(modalActions.openModal({ modalType: 'addModal' }))}
         >
           <PlusSquare size={20} />
-          <span className="visually-hidden">+</span>
+          <span className="visually-hidden">{t('chatPage.channelsCol.addChannelBtn')}</span>
         </button>
       </div>
       <ul id="channels-box" className="nav flex-column nav-pills nav-fill px-2">
@@ -46,12 +49,12 @@ const ChannelsCol = ({ channels, selectedChannelId }) => {
                   split
                   variant={channel.id === selectedChannelId && 'secondary'}
                 >
-                  <span className="visually-hidden">Управление каналом</span>
+                  <span className="visually-hidden">{t('chatPage.channelsCol.control')}</span>
                 </Dropdown.Toggle>
               )}
               <Dropdown.Menu>
-                <Dropdown.Item onClick={() => dispatch(modalActions.openModal({ modalType: 'deleteModal', channelId: channel.id }))} eventKey="1">Удалить</Dropdown.Item>
-                <Dropdown.Item onClick={() => dispatch(modalActions.openModal({ modalType: 'renameModal', channelId: channel.id }))} eventKey="2">Переименовать</Dropdown.Item>
+                <Dropdown.Item onClick={() => dispatch(modalActions.openModal({ modalType: 'deleteModal', channelId: channel.id }))} eventKey="1">{t('chatPage.channelsCol.removeChannelBtn')}</Dropdown.Item>
+                <Dropdown.Item onClick={() => dispatch(modalActions.openModal({ modalType: 'renameModal', channelId: channel.id }))} eventKey="2">{t('chatPage.channelsCol.renameChannelBtn')}</Dropdown.Item>
                 {modalType === 'deleteModal' && <DeleteChannel />}
                 {modalType === 'renameModal' && <RenameChannel />}
               </Dropdown.Menu>

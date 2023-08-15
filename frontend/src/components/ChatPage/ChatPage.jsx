@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
-// import { Link } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -61,7 +60,6 @@ const ChatPage = () => {
             />
             <div className="col p-0 h-100">
               <MessagesCol
-                auth={auth}
                 currentChannel={currentChannel}
                 selectedChannelMessages={selectedChannelMessages}
               />

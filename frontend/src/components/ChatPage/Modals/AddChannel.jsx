@@ -46,7 +46,7 @@ const AddChannel = () => {
 
   useEffect(() => {
     inputRef.current.focus();
-  });
+  }, []);
 
   return (
     <Modal centered show onHide={() => dispatch(modalActions.closeModal())}>

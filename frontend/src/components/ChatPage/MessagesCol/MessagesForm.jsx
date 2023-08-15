@@ -1,6 +1,7 @@
 import { React, useEffect, useRef } from 'react';
 import { Form } from 'react-bootstrap';
 import { ArrowRightSquare } from 'react-bootstrap-icons';
+import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
 import { useSelector } from 'react-redux';
 import { actions as messagesActions } from '../../../slices/messagesSlice.js';
@@ -11,6 +12,7 @@ const MessagesForm = () => {
   const { userData } = useAuth();
   const { username } = userData;
   const inputRef = useRef();
+  const { t } = useTranslation();
   const selectedChannelId = useSelector((state) => state.selectedChannel.value);
   const store = useSelector((state) => state);
   const { sendNewMessage } = useSocket();
@@ -20,27 +22,33 @@ const MessagesForm = () => {
     initialValues: {
       body: '',
     },
-    onSubmit: (value) => {
+    onSubmit: async (values) => {
+      const trimedMessage = values.body.trim();
       try {
-        sendNewMessage(
-          messagesActions.addMessage({
-            body: value.body,
-            channelId: selectedChannelId,
-            username,
-          }),
-        );
-        formik.setSubmitting(true);
-        formik.resetForm();
+        if (trimedMessage.length !== 0) {
+          await sendNewMessage(
+            messagesActions.addMessage({
+              body: trimedMessage,
+              channelId: selectedChannelId,
+              username,
+            }),
+          );
+          formik.resetForm();
+        }
       } catch (error) {
         formik.setSubmitting(false);
         console.error(error);
       }
     },
   });
+  const isSubmitDisable = formik.isSubmitting || formik.values.body.trim() === '';
+  console.log('isSubmitDisadle', isSubmitDisable);
+  console.log(formik.isSubmitting);
 
   useEffect(() => {
     inputRef.current.focus();
-  });
+    console.log('Render');
+  }, [selectedChannelId]);
 
   return (
     <Form
@@ -52,6 +60,7 @@ const MessagesForm = () => {
         <Form.Group className="input-group has-validation">
           <Form.Control
             onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
             className="border-0 p-0 ps-2"
             placeholder="Введите сообщение..."
             aria-label="Новое сообщение"
@@ -60,9 +69,17 @@ const MessagesForm = () => {
             name="body"
             ref={inputRef}
             value={formik.values.body}
+            autoComplete="off"
           />
-          <button type="submit" className="btn btn-group-vertical">
+          <button
+            type="submit"
+            className="btn btn-group-vertical"
+            disabled={isSubmitDisable}
+          >
             <ArrowRightSquare size={20} />
+            <span className="visually-hidden">
+              {t('chatPage.messageForm.submitBtn')}
+            </span>
           </button>
         </Form.Group>
       </fieldset>
