@@ -52,7 +52,45 @@ export default {
       },
       messageForm: {
         submitBtn: 'Отправить',
+        inputField: 'Введите сообщение...',
+        lable: 'Новое сообщение',
       },
+    },
+    modals: {
+      addChannel: {
+        header: 'Добавить канал',
+        submitBtn: 'Отправить',
+        cancelBtn: 'Отменить',
+        lable: 'Имя канала',
+        added: 'Канал создан',
+        validation: {
+          required: 'Обязательное поле',
+          channelNameLen: 'От 3 до 20 символов',
+          uniqName: 'Должно быть уникальным',
+        },
+      },
+      deleteChannel: {
+        header: 'Удалить канал',
+        bodyText: 'Уверены?',
+        deleteBtn: 'Удалить',
+        cancelBtn: 'Отменить',
+        deleted: 'Канал удалён',
+      },
+      renameChannel: {
+        header: 'Переименовать канал',
+        lable: 'Имя канала',
+        submitBtn: 'Отправить',
+        cancelBtn: 'Отменить',
+        renamed: 'Канал переименован',
+        validation: {
+          required: 'Обязательное поле',
+          channelNameLen: 'От 3 до 20 символов',
+          uniqName: 'Должно быть уникальным',
+        },
+      },
+    },
+    errors: {
+      networkError: 'Ошибка соединения',
     },
   },
 };

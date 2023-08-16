@@ -1,5 +1,7 @@
 import { React, useState } from 'react';
 import { Button, Modal } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions as modalActions } from '../../../slices/modalSlice';
 import { setSelectedChannelId } from '../../../slices/selectedChannelSlice';
@@ -7,6 +9,7 @@ import { useSocket } from '../../../contexts/socketContext';
 
 const DeleteChannel = () => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const [isDeleted, setIsDeleted] = useState(false);
   const { deleteChannel } = useSocket();
   const channelId = useSelector((state) => state.modal.id);
@@ -18,6 +21,7 @@ const DeleteChannel = () => {
       dispatch(modalActions.closeModal());
       setIsDeleted(true);
       dispatch(setSelectedChannelId(defaultChannelId));
+      toast.success(t('modals.deleteChannel.deleted'));
     } catch (error) {
       console.error(error);
       setIsDeleted(false);
@@ -27,10 +31,10 @@ const DeleteChannel = () => {
   return (
     <Modal centered show onHide={() => dispatch(modalActions.closeModal())}>
       <Modal.Header closeButton>
-        <Modal.Title>Удалить канал</Modal.Title>
+        <Modal.Title>{t('modals.deleteChannel.header')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <p className="lead">Уверены?</p>
+        <p className="lead">{t('modals.deleteChannel.bodyText')}</p>
         <div className="d-flex justify-content-end">
           <Button
             onClick={() => dispatch(modalActions.closeModal())}
@@ -38,14 +42,14 @@ const DeleteChannel = () => {
             variant="outline-secondary"
             disabled={isDeleted}
           >
-            Отменить
+            {t('modals.deleteChannel.cancelBtn')}
           </Button>
           <Button
             onClick={handleDeleteChannel}
             variant="outline-warning"
             disabled={isDeleted}
           >
-            Удалить
+            {t('modals.deleteChannel.deleteBtn')}
           </Button>
         </div>
       </Modal.Body>

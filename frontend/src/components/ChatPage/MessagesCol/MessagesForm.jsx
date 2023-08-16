@@ -14,9 +14,9 @@ const MessagesForm = () => {
   const inputRef = useRef();
   const { t } = useTranslation();
   const selectedChannelId = useSelector((state) => state.selectedChannel.value);
-  const store = useSelector((state) => state);
   const { sendNewMessage } = useSocket();
-  console.log('////STORE////', store);
+  // const store = useSelector((state) => state);
+  // console.log('////STORE////', store);
 
   const formik = useFormik({
     initialValues: {
@@ -42,8 +42,6 @@ const MessagesForm = () => {
     },
   });
   const isSubmitDisable = formik.isSubmitting || formik.values.body.trim() === '';
-  console.log('isSubmitDisadle', isSubmitDisable);
-  console.log(formik.isSubmitting);
 
   useEffect(() => {
     inputRef.current.focus();
@@ -62,8 +60,8 @@ const MessagesForm = () => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             className="border-0 p-0 ps-2"
-            placeholder="Введите сообщение..."
-            aria-label="Новое сообщение"
+            placeholder={t('chatPage.messageForm.inputField')}
+            aria-label={t('chatPage.messageForm.lable')}
             id="messageForm"
             type="text"
             name="body"

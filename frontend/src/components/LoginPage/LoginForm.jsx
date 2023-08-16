@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { toast } from 'react-toastify';
 import { Button, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
@@ -23,18 +24,23 @@ const LoginForm = () => {
       password: '',
     },
     onSubmit: async (values) => {
+      const logInData = values;
       try {
-        const response = await axios.post(routes.loginApiPath(), values);
+        const response = await axios.post(routes.loginApiPath(), logInData);
         console.log('response', response.data);
         logIn(response.data);
         redirect(routes.chatPagePath());
       } catch (error) {
         console.log('error', error);
+        if (error.message === 'Network Error') {
+          toast.error(t('errors.networkError'));
+          return;
+        }
         if (error.isAxiosError && error.response.status === 401) {
           setAuthFailed(true);
           return;
         }
-        throw error;
+        console.error(error);
       }
     },
   });

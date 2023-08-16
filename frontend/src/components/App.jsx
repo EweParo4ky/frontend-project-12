@@ -1,5 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import ChatPage from './ChatPage/ChatPage.jsx';
 import LoginPage from './LoginPage/LoginPage.jsx';
 import SignUpPage from './SignUpPage/SignUpPage.jsx';
@@ -26,6 +28,7 @@ const App = () => (
         </Routes>
       </div>
     </BrowserRouter>
+    <ToastContainer />
   </AuthProvider>
 );
 export default App;

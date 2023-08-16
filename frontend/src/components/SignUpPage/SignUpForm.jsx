@@ -1,6 +1,7 @@
 import {
   React, useRef, useState, useEffect,
 } from 'react';
+import { toast } from 'react-toastify';
 import { Button, Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -49,12 +50,15 @@ const SignUpForm = () => {
       } catch (error) {
         formik.setSubmitting(false);
 
-        if (error.response.status === 409) {
-          setSignUpFailed(true);
-          console.error(error);
+        if (error.message === 'Network Error') {
+          toast.error(t('errors.networkError'));
           return;
         }
-        throw error;
+        if (error.isAxiosError && error.response.status === 409) {
+          setSignUpFailed(true);
+          return;
+        }
+        console.error(error);
       }
     },
   });
