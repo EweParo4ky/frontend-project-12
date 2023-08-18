@@ -2,6 +2,7 @@ import { React, useEffect, useRef } from 'react';
 import { Form } from 'react-bootstrap';
 import { ArrowRightSquare } from 'react-bootstrap-icons';
 import { useTranslation } from 'react-i18next';
+import filter from 'leo-profanity';
 import { useFormik } from 'formik';
 import { useSelector } from 'react-redux';
 import { actions as messagesActions } from '../../../slices/messagesSlice.js';
@@ -24,11 +25,12 @@ const MessagesForm = () => {
     },
     onSubmit: async (values) => {
       const trimedMessage = values.body.trim();
+      const censoredMessage = filter.clean(trimedMessage);
       try {
         if (trimedMessage.length !== 0) {
           await sendNewMessage(
             messagesActions.addMessage({
-              body: trimedMessage,
+              body: censoredMessage,
               channelId: selectedChannelId,
               username,
             }),

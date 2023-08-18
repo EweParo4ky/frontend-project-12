@@ -3,6 +3,7 @@ import { Button, Form, Modal } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import * as yup from 'yup';
+import filter from 'leo-profanity';
 import { useFormik } from 'formik';
 import { toast } from 'react-toastify';
 import { selectors as channelsSelectors } from '../../../slices/channelsSlice';
@@ -36,8 +37,9 @@ const AddChannel = () => {
     validateOnChange: false,
     validateOnBlur: false,
     onSubmit: async (values) => {
+      const censoredChannelName = filter.clean(values.channelName);
       try {
-        await addNewChannel({ name: values.channelName });
+        await addNewChannel({ name: censoredChannelName });
         dispatch(modalActions.closeModal());
         formik.setSubmitting(true);
         toast.success(t('modals.addChannel.added'));

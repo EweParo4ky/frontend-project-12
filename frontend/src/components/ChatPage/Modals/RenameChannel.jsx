@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
+import filter from 'leo-profanity';
 import { useFormik } from 'formik';
 import { actions as modalActions } from '../../../slices/modalSlice';
 import { selectors as channelsSelectors } from '../../../slices/channelsSlice';
@@ -51,9 +52,10 @@ const RenameChannel = () => {
     validateOnBlur: false,
     validationSchema: validateChannel(channelsNames),
     onSubmit: async (values) => {
+      const censoredChannelName = filter.clean(values.channelName);
       const renamedChannel = {
         id: selectedChannel.id,
-        name: values.channelName,
+        name: censoredChannelName,
         removable: selectedChannel.removable,
       };
       try {

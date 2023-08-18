@@ -51,7 +51,6 @@ const SocketProvider = ({ socket, children }) => {
   };
 
   const renameChannel = (selectedChannel) => {
-    console.log('inRENAMECHANNEL SelectedCHANNEL', selectedChannel);
     socket.emit('renameChannel', selectedChannel);
   };
 

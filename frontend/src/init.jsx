@@ -2,6 +2,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { io } from 'socket.io-client';
 import i18next from 'i18next';
+import filter from 'leo-profanity';
 import { I18nextProvider, initReactI18next } from 'react-i18next';
 import resources from './locales';
 import { SocketProvider } from './contexts/socketContext.jsx';
@@ -20,6 +21,9 @@ const init = async () => {
       lng: 'ru',
       debug: false,
     });
+
+  const ruDictionary = filter.getDictionary('ru');
+  filter.add(ruDictionary);
 
   return (
     <Provider store={store}>
