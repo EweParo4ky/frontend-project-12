@@ -1,13 +1,15 @@
+# Hexlet-frontend project: Chat(slack).
+
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/EweParo4ky/frontend-project-12/workflows/hexlet-check/badge.svg)](https://github.com/EweParo4ky/frontend-project-12/actions)
 
-## Description:
-This is a simple real-time chat app( slack analogue )
+ ### Description:
+     This is a simple real-time chat app( slack analogue )
 
-## Features:
- * Log In / registration
- * Adding, renaming and removing channels
- * Censorship of profanity
+ ### Features:
+    * Log In / registration
+    * Adding, renaming and removing channels
+    * Censorship of profanity
  ### Install
     $ git clone git@github.com:EweParo4ky/frontend-project-12.git
     $ cd frontend-project-12
