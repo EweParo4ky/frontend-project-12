@@ -14,7 +14,6 @@ const DeleteChannel = () => {
   const { deleteChannel } = useSocket();
   const channelId = useSelector((state) => state.modal.id);
   const defaultChannelId = 1;
-  console.log(isDeleted);
 
   const handleDeleteChannel = async () => {
     try {
@@ -41,14 +40,14 @@ const DeleteChannel = () => {
             onClick={() => dispatch(modalActions.closeModal())}
             className="me-2"
             variant="outline-secondary"
-            // disabled={isDeleted}
+            disabled={isDeleted}
           >
             {t('modals.deleteChannel.cancelBtn')}
           </Button>
           <Button
             onClick={handleDeleteChannel}
             variant="outline-warning"
-            // disabled={isDeleted}
+            disabled={isDeleted}
           >
             {t('modals.deleteChannel.deleteBtn')}
           </Button>

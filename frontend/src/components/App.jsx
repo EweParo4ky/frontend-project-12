@@ -12,21 +12,19 @@ import Authorization from './AuthorizationCheck/AuthorizationCheck.jsx';
 const App = () => (
   <AuthProvider>
     <BrowserRouter>
-      <div className="d-flex flex-column vh-100">
-        <Routes>
-          <Route path="login" element={<LoginPage />} />
-          <Route
-            path="/"
-            element={(
-              <Authorization>
-                <ChatPage />
-              </Authorization>
+      <Routes>
+        <Route path="login" element={<LoginPage />} />
+        <Route
+          path="/"
+          element={(
+            <Authorization>
+              <ChatPage />
+            </Authorization>
             )}
-          />
-          <Route path="/signup" element={<SignUpPage />} />
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
-      </div>
+        />
+        <Route path="/signup" element={<SignUpPage />} />
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
     </BrowserRouter>
     <ToastContainer />
   </AuthProvider>

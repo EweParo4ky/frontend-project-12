@@ -48,24 +48,22 @@ const ChatPage = () => {
     .filter(({ channelId }) => channelId === selectedChannelId);
 
   return (
-    <div className="h-100" id="chat">
-      <div className="d-flex flex-column h-100">
-        <Nav />
-        <Container className="h-100 my-4 overflow-hidden rounded shadow">
-          <div className="row h-100 bg-white flex-md-row">
-            <ChannelsCol
-              channels={channels}
-              selectedChannelId={selectedChannelId}
+    <div className="d-flex flex-column h-100">
+      <Nav />
+      <Container className="h-100 my-4 overflow-hidden rounded shadow">
+        <div className="row h-100 bg-white flex-md-row">
+          <ChannelsCol
+            channels={channels}
+            selectedChannelId={selectedChannelId}
+          />
+          <div className="col p-0 h-100">
+            <MessagesCol
+              currentChannel={currentChannel}
+              selectedChannelMessages={selectedChannelMessages}
             />
-            <div className="col p-0 h-100">
-              <MessagesCol
-                currentChannel={currentChannel}
-                selectedChannelMessages={selectedChannelMessages}
-              />
-            </div>
           </div>
-        </Container>
-      </div>
+        </div>
+      </Container>
     </div>
   );
 };
