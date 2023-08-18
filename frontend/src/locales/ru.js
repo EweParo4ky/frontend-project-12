@@ -9,7 +9,7 @@ export default {
       logIn: 'Войти',
       username: 'Ваш ник',
       password: 'Пароль',
-      authFailed: 'Неверные имя пользователя и пароль',
+      authFailed: 'Неверные имя пользователя или пароль',
       noAcc: 'Нет аккаунта?',
       regestration: 'Регистрация',
     },
