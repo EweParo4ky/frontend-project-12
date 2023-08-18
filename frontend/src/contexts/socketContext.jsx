@@ -10,7 +10,7 @@ const SocketProvider = ({ socket, children }) => {
   const dispatch = useDispatch();
   socket
     .on('connect', () => {
-      console.log({ '/////USER CONNECTED!!!!///////// socket.id': socket.id });
+      console.log({ 'USER CONNECTED socket.id': socket.id });
     })
     .on('connect_error', () => {
       console.log('Socket "connect_error"');

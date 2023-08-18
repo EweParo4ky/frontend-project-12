@@ -5,7 +5,10 @@ import { useTranslation } from 'react-i18next';
 import filter from 'leo-profanity';
 import { useFormik } from 'formik';
 import { useSelector } from 'react-redux';
-import { actions as messagesActions } from '../../../slices/messagesSlice.js';
+import {
+  actions as messagesActions,
+  selectors as messageSelectors,
+} from '../../../slices/messagesSlice.js';
 import { useAuth } from '../../../contexts/authContext.jsx';
 import { useSocket } from '../../../contexts/socketContext.jsx';
 
@@ -15,9 +18,9 @@ const MessagesForm = () => {
   const inputRef = useRef();
   const { t } = useTranslation();
   const selectedChannelId = useSelector((state) => state.selectedChannel.value);
+  const messages = useSelector(messageSelectors.selectAll);
+  const lastMessage = messages.at(-1);
   const { sendNewMessage } = useSocket();
-  // const store = useSelector((state) => state);
-  // console.log('////STORE////', store);
 
   const formik = useFormik({
     initialValues: {
@@ -47,8 +50,7 @@ const MessagesForm = () => {
 
   useEffect(() => {
     inputRef.current.focus();
-    console.log('Render');
-  }, [selectedChannelId]);
+  }, [selectedChannelId, lastMessage]);
 
   return (
     <Form

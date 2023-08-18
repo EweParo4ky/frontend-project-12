@@ -6,6 +6,7 @@
   "dependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@reduxjs/toolkit": "^1.9.5",
+    "@rollbar/react": "^0.11.2",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -22,7 +23,9 @@
     "react-redux": "^8.1.1",
     "react-router-dom": "^6.14.0",
     "react-scripts": "5.0.1",
+    "react-scroll": "^1.8.9",
     "react-toastify": "^9.1.3",
+    "rollbar": "^2.26.2",
     "socket.io-client": "^4.7.1",
     "web-vitals": "^2.1.4",
     "yup": "^1.2.0"

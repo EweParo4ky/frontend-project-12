@@ -32,7 +32,6 @@ const ChatPage = () => {
         dispatch(channelsActions.setChannels(res.data.channels));
         dispatch(setSelectedChannelId(res.data.currentChannelId));
         dispatch(messagesActions.setMessages(res.data.messages));
-        console.log('responseFetchData!!!', res.data);
       } catch (error) {
         console.error(error);
       }
