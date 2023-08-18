@@ -14,7 +14,7 @@ This is a simple real-time chat app( slack analogue )
     $ To install dependencies: make install
     $ Launch: make start
 
-     ## Tools
+   ## Tools
 [![React][React-badge]][React-url]
 [![Redux][Redux-badge]][Redux-url]
 [![Socket.io][Socket.io-badge]][Socket.io-url]
