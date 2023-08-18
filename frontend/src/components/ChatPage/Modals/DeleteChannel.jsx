@@ -46,7 +46,7 @@ const DeleteChannel = () => {
           </Button>
           <Button
             onClick={handleDeleteChannel}
-            variant="outline-warning"
+            variant="danger"
             disabled={isDeleted}
           >
             {t('modals.deleteChannel.deleteBtn')}
