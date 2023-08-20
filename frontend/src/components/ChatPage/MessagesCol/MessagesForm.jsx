@@ -17,7 +17,7 @@ const MessagesForm = () => {
   const { username } = userData;
   const inputRef = useRef();
   const { t } = useTranslation();
-  const selectedChannelId = useSelector((state) => state.selectedChannel.value);
+  const selectedChannelId = useSelector((state) => state.channels.selectedChannelId);
   const messages = useSelector(messageSelectors.selectAll);
   const lastMessage = messages.at(-1);
   const { sendNewMessage } = useSocket();

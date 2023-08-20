@@ -8,7 +8,7 @@ import {
   actions as channelsActions,
   selectors as channelsSelectors,
 } from '../../slices/channelsSlice.js';
-import { setSelectedChannelId } from '../../slices/selectedChannelSlice.js';
+// import { setSelectedChannelId } from '../../slices/selectedChannelSlice.js';
 import {
   actions as messagesActions,
   selectors as messageSelectors,
@@ -25,8 +25,6 @@ const ChatPage = () => {
   const auth = useAuth();
   const { t } = useTranslation();
   const { token } = auth.userData;
-  const store = useSelector((state) => state);
-  console.log('STATE', store);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -35,12 +33,12 @@ const ChatPage = () => {
           headers: { Authorization: `Bearer ${token}` },
         });
         dispatch(channelsActions.setChannels(res.data.channels));
-        dispatch(setSelectedChannelId(res.data.currentChannelId));
+        dispatch(channelsActions.setSelectedChannelId(res.data.currentChannelId));
         dispatch(messagesActions.setMessages(res.data.messages));
       } catch (error) {
         if (!error.isAxiosError) throw error;
         console.error(error);
-        if (error.response?.status === 500) auth.logOut();
+        if (error.response?.code === 'ERR_BAD_REQUEST') auth.logOut();
         toast.error(t('errors.networkError'));
       }
     };
@@ -48,7 +46,7 @@ const ChatPage = () => {
   }, [dispatch, token, auth, t]);
 
   const channels = useSelector(channelsSelectors.selectAll);
-  const selectedChannelId = useSelector((state) => state.selectedChannel.value);
+  const selectedChannelId = useSelector((state) => state.channels.selectedChannelId);
   const currentChannel = useSelector(
     (state) => channelsSelectors.selectById(state, selectedChannelId),
   );

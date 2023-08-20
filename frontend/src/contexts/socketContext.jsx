@@ -2,7 +2,6 @@ import React, { createContext, useContext, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import { actions as messagesActions } from '../slices/messagesSlice.js';
 import { actions as channelsActions } from '../slices/channelsSlice.js';
-import { setSelectedChannelId } from '../slices/selectedChannelSlice.js';
 
 const SocketContext = createContext();
 
@@ -41,7 +40,7 @@ const SocketProvider = ({ socket, children }) => {
     socket.emit('newChannel', newChannel, (res) => {
       if (res.status === 'ok') {
         dispatch(channelsActions.addChannel);
-        dispatch(setSelectedChannelId(res.data.id));
+        dispatch(channelsActions.setSelectedChannelId(res.data.id));
       }
     });
   };

@@ -4,7 +4,10 @@ import { Button, ButtonGroup, Dropdown } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { animateScroll as scroll } from 'react-scroll';
 import { PlusSquare } from 'react-bootstrap-icons';
-import { setSelectedChannelId } from '../../../slices/selectedChannelSlice.js';
+// import { setSelectedChannelId } from '../../../slices/channelsSlice';
+import {
+  actions as channelsActions,
+} from '../../../slices/channelsSlice';
 import { actions as modalActions } from '../../../slices/modalSlice';
 import AddChannel from '../Modals/AddChannel.jsx';
 import DeleteChannel from '../Modals/DeleteChannel.jsx';
@@ -42,7 +45,7 @@ const ChannelsCol = ({ channels, selectedChannelId }) => {
               <Button
                 className="w-100 rounded-0 text-start btn text-truncate"
                 onClick={() => {
-                  dispatch(setSelectedChannelId(channel.id));
+                  dispatch(channelsActions.setSelectedChannelId(channel.id));
                 }}
                 variant={channel.id === selectedChannelId && 'secondary'}
               >

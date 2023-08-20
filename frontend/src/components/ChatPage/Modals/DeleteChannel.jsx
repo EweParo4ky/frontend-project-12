@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions as modalActions } from '../../../slices/modalSlice';
-import { setSelectedChannelId } from '../../../slices/selectedChannelSlice';
+import { actions as channelsActions } from '../../../slices/channelsSlice';
 import { useSocket } from '../../../contexts/socketContext';
 
 const DeleteChannel = () => {
@@ -14,7 +14,7 @@ const DeleteChannel = () => {
   const { deleteChannel } = useSocket();
   const channelId = useSelector((state) => state.modal.id);
   const defaultChannelId = 1;
-  const selectedChannelId = useSelector((state) => state.selectedChannel.value);
+  const selectedChannelId = useSelector((state) => state.channels.selectedChannelId);
 
   const handleDeleteChannel = async () => {
     try {
@@ -22,7 +22,7 @@ const DeleteChannel = () => {
       dispatch(modalActions.closeModal());
       setIsDeleted(true);
       if (channelId === selectedChannelId) {
-        dispatch(setSelectedChannelId(defaultChannelId));
+        dispatch(channelsActions.setSelectedChannelId(defaultChannelId));
       }
       toast.success(t('modals.deleteChannel.deleted'));
     } catch (error) {
