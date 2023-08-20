@@ -38,8 +38,8 @@ const ChatPage = () => {
       } catch (error) {
         if (!error.isAxiosError) throw error;
         console.error(error);
-        if (error.response?.code === 'ERR_BAD_REQUEST') auth.logOut();
-        toast.error(t('errors.networkError'));
+        if (error.code === 'ERR_BAD_REQUEST') auth.logOut();
+        else toast.error(t('errors.networkError'));
       }
     };
     fetchData();
