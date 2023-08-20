@@ -16,8 +16,6 @@ const LoginForm = () => {
   const inputRef = useRef();
   const { t } = useTranslation();
 
-  console.log('localstorage', localStorage.getItem('userData'));
-
   const formik = useFormik({
     initialValues: {
       username: '',
@@ -27,7 +25,6 @@ const LoginForm = () => {
       const logInData = values;
       try {
         const response = await axios.post(routes.loginApiPath(), logInData);
-        console.log('response', response.data);
         logIn(response.data);
         redirect(routes.chatPagePath());
       } catch (error) {

@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import axios from 'axios';
 import { Container } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 import {
   actions as channelsActions,
   selectors as channelsSelectors,
@@ -21,7 +23,10 @@ import Nav from '../NavBar/Nav.jsx';
 const ChatPage = () => {
   const dispatch = useDispatch();
   const auth = useAuth();
+  const { t } = useTranslation();
   const { token } = auth.userData;
+  const store = useSelector((state) => state);
+  console.log('STATE', store);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -33,11 +38,14 @@ const ChatPage = () => {
         dispatch(setSelectedChannelId(res.data.currentChannelId));
         dispatch(messagesActions.setMessages(res.data.messages));
       } catch (error) {
+        if (!error.isAxiosError) throw error;
         console.error(error);
+        if (error.response?.status === 500) auth.logOut();
+        toast.error(t('errors.networkError'));
       }
     };
     fetchData();
-  }, [dispatch, token]);
+  }, [dispatch, token, auth, t]);
 
   const channels = useSelector(channelsSelectors.selectAll);
   const selectedChannelId = useSelector((state) => state.selectedChannel.value);

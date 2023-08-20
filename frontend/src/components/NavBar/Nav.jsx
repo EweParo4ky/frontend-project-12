@@ -6,11 +6,12 @@ import { useAuth } from '../../contexts/authContext';
 const Nav = () => {
   const auth = useAuth();
   const { t } = useTranslation();
+  const path = auth.userData ? '#' : '/';
 
   return (
     <Navbar className="shadow-sm navbar navbar-expand-lg navbar-light bg-white">
       <div className="container">
-        <a className="navbar-brand" href="/">
+        <a className="navbar-brand" href={path}>
           {t('navBar.header')}
         </a>
         {auth.userData ? (

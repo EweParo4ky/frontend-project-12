@@ -8,22 +8,23 @@ import SignUpPage from './SignUpPage/SignUpPage.jsx';
 import NotFoundPage from './NotFoundPage/NotFoundPage.jsx';
 import { AuthProvider } from '../contexts/authContext.jsx';
 import Authorization from './AuthorizationCheck/AuthorizationCheck.jsx';
+import routes from '../routes.js';
 
 const App = () => (
   <AuthProvider>
     <BrowserRouter>
       <Routes>
-        <Route path="login" element={<LoginPage />} />
+        <Route path={routes.loginPagePath()} element={<LoginPage />} />
         <Route
-          path="/"
+          path={routes.chatPagePath()}
           element={(
             <Authorization>
               <ChatPage />
             </Authorization>
             )}
         />
-        <Route path="/signup" element={<SignUpPage />} />
-        <Route path="*" element={<NotFoundPage />} />
+        <Route path={routes.signupPagePath()} element={<SignUpPage />} />
+        <Route path={routes.noFoundPagePath()} element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
     <ToastContainer />

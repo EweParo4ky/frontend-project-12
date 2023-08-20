@@ -5,7 +5,6 @@ import routes from '../../routes';
 
 const Authorization = ({ children }) => {
   const data = useAuth();
-  console.log('data in Authorization', data);
   return data.userData ? children : <Navigate to={routes.loginPagePath()} />;
 };
 export default Authorization;

@@ -1,7 +1,8 @@
-import React from 'react';
+import { React, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button, ButtonGroup, Dropdown } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
+import { animateScroll as scroll } from 'react-scroll';
 import { PlusSquare } from 'react-bootstrap-icons';
 import { setSelectedChannelId } from '../../../slices/selectedChannelSlice.js';
 import { actions as modalActions } from '../../../slices/modalSlice';
@@ -13,6 +14,10 @@ const ChannelsCol = ({ channels, selectedChannelId }) => {
   const dispatch = useDispatch();
   const { modalType } = useSelector((state) => state.modal);
   const { t } = useTranslation();
+
+  useEffect(() => {
+    scroll.scrollToBottom({ containerId: 'channels-box', delay: 0, duration: 0 });
+  }, [channels.length]);
 
   return (
     <div className="col-4 col-md-2 border-end px-0 bg-light flex-column h-100 d-flex">
@@ -30,7 +35,7 @@ const ChannelsCol = ({ channels, selectedChannelId }) => {
           <span className="visually-hidden">{t('chatPage.channelsCol.addChannelBtn')}</span>
         </button>
       </div>
-      <ul id="channels-box" className="nav flex-column nav-pills nav-fill px-2">
+      <ul id="channels-box" className="nav flex-column nav-pills nav-fill px-2 mb-3 overflow-auto h-100 d-block">
         {channels.map((channel) => (
           <li className="nav-item w-100" key={channel.id}>
             <Dropdown as={ButtonGroup} className="d-flex">

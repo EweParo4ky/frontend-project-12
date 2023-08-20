@@ -14,13 +14,16 @@ const DeleteChannel = () => {
   const { deleteChannel } = useSocket();
   const channelId = useSelector((state) => state.modal.id);
   const defaultChannelId = 1;
+  const selectedChannelId = useSelector((state) => state.selectedChannel.value);
 
   const handleDeleteChannel = async () => {
     try {
       await deleteChannel({ id: channelId });
       dispatch(modalActions.closeModal());
       setIsDeleted(true);
-      dispatch(setSelectedChannelId(defaultChannelId));
+      if (channelId === selectedChannelId) {
+        dispatch(setSelectedChannelId(defaultChannelId));
+      }
       toast.success(t('modals.deleteChannel.deleted'));
     } catch (error) {
       console.error(error);

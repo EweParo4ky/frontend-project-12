@@ -10,9 +10,8 @@ import { SocketProvider } from './contexts/socketContext.jsx';
 import store from './slices/index.js';
 import App from './components/App.jsx';
 
-const socket = io();
-
 const init = async () => {
+  const socket = io();
   const i18n = i18next.createInstance();
   await i18n
     .use(initReactI18next)
@@ -23,8 +22,8 @@ const init = async () => {
     });
 
   const rollbarConfig = {
-    accessToken: '51c57a33f98545d7867c416f8ff985ca',
-    environment: 'testenv',
+    accessToken: process.env.REACT_APP_ROLLBAR_TOKEN,
+    environment: 'production',
   };
 
   const ruDictionary = filter.getDictionary('ru');
