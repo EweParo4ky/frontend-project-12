@@ -4,7 +4,6 @@ import { Button, ButtonGroup, Dropdown } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { animateScroll as scroll } from 'react-scroll';
 import { PlusSquare } from 'react-bootstrap-icons';
-// import { setSelectedChannelId } from '../../../slices/channelsSlice';
 import {
   actions as channelsActions,
 } from '../../../slices/channelsSlice';
@@ -17,10 +16,17 @@ const ChannelsCol = ({ channels, selectedChannelId }) => {
   const dispatch = useDispatch();
   const { modalType } = useSelector((state) => state.modal);
   const { t } = useTranslation();
+  const defaultChannelId = 1;
+  const lastChennelId = channels.at(-1)?.id;
 
   useEffect(() => {
-    scroll.scrollToBottom({ containerId: 'channels-box', delay: 0, duration: 0 });
-  }, [channels.length]);
+    if (selectedChannelId === defaultChannelId) {
+      scroll.scrollToTop({ containerId: 'channels-box', delay: 0, duration: 0 });
+    }
+    if (selectedChannelId === lastChennelId) {
+      scroll.scrollToBottom({ containerId: 'channels-box', delay: 0, duration: 0 });
+    }
+  }, [selectedChannelId, lastChennelId]);
 
   return (
     <div className="col-4 col-md-2 border-end px-0 bg-light flex-column h-100 d-flex">
