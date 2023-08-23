@@ -8,7 +8,6 @@ import {
   actions as channelsActions,
   selectors as channelsSelectors,
 } from '../../slices/channelsSlice.js';
-// import { setSelectedChannelId } from '../../slices/selectedChannelSlice.js';
 import {
   actions as messagesActions,
   selectors as messageSelectors,

@@ -17,16 +17,16 @@ const ChannelsCol = ({ channels, selectedChannelId }) => {
   const { modalType } = useSelector((state) => state.modal);
   const { t } = useTranslation();
   const defaultChannelId = 1;
-  const lastChennelId = channels.at(-1)?.id;
+  const lastChannelId = channels.at(-1)?.id;
 
   useEffect(() => {
     if (selectedChannelId === defaultChannelId) {
       scroll.scrollToTop({ containerId: 'channels-box', delay: 0, duration: 0 });
     }
-    if (selectedChannelId === lastChennelId) {
+    if (selectedChannelId === lastChannelId) {
       scroll.scrollToBottom({ containerId: 'channels-box', delay: 0, duration: 0 });
     }
-  }, [selectedChannelId, lastChennelId]);
+  }, [selectedChannelId, lastChannelId]);
 
   return (
     <div className="col-4 col-md-2 border-end px-0 bg-light flex-column h-100 d-flex">

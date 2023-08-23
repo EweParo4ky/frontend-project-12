@@ -7,11 +7,12 @@ import { I18nextProvider, initReactI18next } from 'react-i18next';
 import { Provider as ProviderRollbar, ErrorBoundary } from '@rollbar/react';
 import resources from './locales';
 import { SocketProvider } from './contexts/socketContext.jsx';
+import { actions as messagesActions } from './slices/messagesSlice';
+import { actions as channelsActions } from './slices/channelsSlice.js';
 import store from './slices/index.js';
 import App from './components/App.jsx';
 
 const init = async () => {
-  const socket = io();
   const i18n = i18next.createInstance();
   await i18n
     .use(initReactI18next)
@@ -19,6 +20,33 @@ const init = async () => {
       resources,
       lng: 'ru',
       debug: false,
+    });
+
+  const socket = io();
+
+  socket
+    .on('connect', () => {
+      console.log({ 'USER CONNECTED socket.id': socket.id });
+    })
+    .on('connect_error', () => {
+      console.log('Socket "connect_error"');
+    })
+    .on('newMessage', (message) => {
+      store.dispatch(messagesActions.addMessage(message));
+    })
+    .on('newChannel', (channelWithId) => {
+      store.dispatch(channelsActions.addChannel(channelWithId));
+    })
+    .on('removeChannel', (selectedChannel) => {
+      store.dispatch(channelsActions.deleteChannel(selectedChannel.id));
+    })
+    .on('renameChannel', (renamedChannel) => {
+      store.dispatch(channelsActions.renameChannel({
+        id: renamedChannel.id,
+        changes: {
+          name: renamedChannel.name,
+        },
+      }));
     });
 
   const rollbarConfig = {

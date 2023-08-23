@@ -24,7 +24,7 @@ const App = () => (
             )}
         />
         <Route path={routes.signupPagePath()} element={<SignUpPage />} />
-        <Route path={routes.noFoundPagePath()} element={<NotFoundPage />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
     <ToastContainer />

@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import Image from 'react-bootstrap/Image';
 import notFound from '../../assets/404.svg';
 import Nav from '../NavBar/Nav';
+import routes from '../../routes';
 
 const NotFoundPage = () => {
   const { t } = useTranslation();
@@ -20,7 +21,7 @@ const NotFoundPage = () => {
         <p className="text-muted">
           {t('notFoundPage.redirect')}
           {' '}
-          <a href="/">{t('notFoundPage.mainPage')}</a>
+          <a href={routes.chatPagePath()}>{t('notFoundPage.mainPage')}</a>
         </p>
       </div>
     </div>
