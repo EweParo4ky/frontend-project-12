@@ -25,12 +25,6 @@ const init = async () => {
   const socket = io();
 
   socket
-    .on('connect', () => {
-      console.log({ 'USER CONNECTED socket.id': socket.id });
-    })
-    .on('connect_error', () => {
-      console.log('Socket "connect_error"');
-    })
     .on('newMessage', (message) => {
       store.dispatch(messagesActions.addMessage(message));
     })

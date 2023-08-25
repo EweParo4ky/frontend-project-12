@@ -28,7 +28,6 @@ const LoginForm = () => {
         logIn(response.data);
         redirect(routes.chatPagePath());
       } catch (error) {
-        console.log('error', error);
         if (error.message === 'Network Error') {
           toast.error(t('errors.networkError'));
           return;
