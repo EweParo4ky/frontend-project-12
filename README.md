@@ -3,6 +3,9 @@
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/EweParo4ky/frontend-project-12/workflows/hexlet-check/badge.svg)](https://github.com/EweParo4ky/frontend-project-12/actions)
 
+## Link to deploy:
+[![Railway][Railway-badge]][Railway-url]
+
  ### Description:
      This is a simple real-time chat app( slack analogue )
 
@@ -24,6 +27,9 @@
 [![Bootstrap][Bootstrap-badge]][Bootstrap-url]
 [![i18next][i18next-badge]][i18next-url]
 [![yup][yup-badge]][yup-url]
+
+[Railway-badge]: https://img.shields.io/badge/Render-%46E3B7.svg?style=for-the-badge&logo=render&logoColor=white
+[Railway-url]: https://chat-9o16.onrender.com
 
 [React-badge]: https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB
 [React-url]: https://ru.legacy.reactjs.org/
