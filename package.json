@@ -21,5 +21,6 @@
   "homepage": "https://github.com/EweParo4ky/frontend-project-12#readme",
   "dependencies": {
     "@hexlet/chat-server": "^1.1.6"
-  }
+  },
+  "optionalDependencies": { "fsevents": "2.1.2"     }
 }
