@@ -50,4 +50,4 @@
 [i18next-url]: https://www.i18next.com
 
 [yup-badge]: https://img.shields.io/badge/yup-gray?style=flat&logoColor=white
-[yup-url]: https://github.com/sindresorhus/on-change
+[yup-url]: https://github.com/sindresorhus/on-change](https://www.npmjs.com/package/yup)https://www.npmjs.com/package/yup
